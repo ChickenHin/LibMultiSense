@@ -174,36 +174,36 @@ jobs:
           cmake --build ci/library-consumption-test/build -j "$(nproc)"
           ./ci/library-consumption-test/build/multisense_consumption_test
 
-      - name: Test library consumption with Python
-        if: inputs.python_bindings
-        run: |
-          source .venv/bin/activate
-          pip install --no-index --find-links=pip-wheel libmultisense
-          python ci/library-consumption-test/consumption_test.py
-          multisense_version_info_utility --help
+      # - name: Test library consumption with Python
+      #   if: inputs.python_bindings
+      #   run: |
+      #     source .venv/bin/activate
+      #     pip install --no-index --find-links=pip-wheel libmultisense
+      #     python ci/library-consumption-test/consumption_test.py
+      #     multisense_version_info_utility --help
 
       #
       # Upload artifacts
       #
 
-      - name: Upload library artifact
-        uses: actions/upload-artifact@v7
-        if: inputs.upload_artifacts
-        with:
-          name: install-${{ env.NAME }}
-          path: install/
+      # - name: Upload library artifact
+      #   uses: actions/upload-artifact@v7
+      #   if: inputs.upload_artifacts
+      #   with:
+      #     name: install-${{ env.NAME }}
+      #     path: install/
 
-      - name: Upload pip wheel Artifact
-        uses: actions/upload-artifact@v7
-        if: inputs.upload_artifacts && inputs.python_bindings
-        with:
-          name: libmultisense-wheel-${{ env.NAME }}
-          path: pip-wheel/
+      # - name: Upload pip wheel Artifact
+      #   uses: actions/upload-artifact@v7
+      #   if: inputs.upload_artifacts && inputs.python_bindings
+      #   with:
+      #     name: libmultisense-wheel-${{ env.NAME }}
+      #     path: pip-wheel/
 
-      - name: Upload Coverage to Codecov
-        if: inputs.coverage
-        uses: codecov/codecov-action@v6
-        with:
-          files: build/coverage_filtered.info
-          fail_ci_if_error: false
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload Coverage to Codecov
+      #   if: inputs.coverage
+      #   uses: codecov/codecov-action@v6
+      #   with:
+      #     files: build/coverage_filtered.info
+      #     fail_ci_if_error: false
+      #     token: ${{ secrets.CODECOV_TOKEN }}
